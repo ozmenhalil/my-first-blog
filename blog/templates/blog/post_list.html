@@ -1,19 +1,28 @@
+{% extends 'blog/base.html' %}
+
+{% load static %}
 <html>
     <head>
         <title>Halil</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
     </head>
-    <body>
-      <div>
-  <h1><a href="/">Halil</a></h1>
-</div>
-
-{% for post in posts %}
-  <div>
-      <p>published: {{ post.published_date }}</p>
-      <h1><a href="">{{ post.title }}</a></h1>
-      <p>{{ post.text|linebreaksbr }}</p>
-  </div>
-{% endfor %}
+    <body style="padding-left: 15px">
+{% block content %}
+            {% for post in posts %}
+                <div class="post">
+                    <div class="date">
+                        <p>Yayın tarihi: {{ post.published_date }}</p>
+                    </div>
+                    <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+                    <p>{{ post.text|linebreaksbr }}</p>
+                </div>
+            {% endfor %}
+{% endblock %}
     </body>
 </html>
+
+
+#html,head,body etiketleri olmasada olur. Çünkü block yarattık. Bu blocku base den çağırıyoruz.
